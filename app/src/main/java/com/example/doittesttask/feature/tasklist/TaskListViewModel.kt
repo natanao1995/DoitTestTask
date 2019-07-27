@@ -1,24 +1,24 @@
 package com.example.doittesttask.feature.tasklist
 
-import androidx.lifecycle.MutableLiveData
-import com.example.doittesttask.architecture.base.*
-import com.example.doittesttask.data.User
-import com.example.doittesttask.data.remote.entity.TasksListBody
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.lang.Exception
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
+import com.example.doittesttask.architecture.base.BaseViewModel
+import com.example.doittesttask.data.remote.entity.TasksListBody.Meta.Companion.PAGE_SIZE
+import com.example.doittesttask.feature.tasklist.recycler.TaskDataSourceFactory
 
 class TaskListViewModel(
-    private val interactor: TaskListInteractor
+    interactor: TaskListInteractor
 ) : BaseViewModel() {
 
-    val tasksListLiveData = MutableLiveData<Result<TasksListBody>>()
+    private val taskDataSourceFactory = TaskDataSourceFactory(interactor)
+    val grabHistoryItemPagedList = LivePagedListBuilder(
+        taskDataSourceFactory,
+        PagedList.Config.Builder()
+            .setEnablePlaceholders(false)
+            .setPageSize(PAGE_SIZE).build()
+    ).build()
 
-    fun getTasks() {
-        launch {
-            tasksListLiveData.value = ResultLoading()
-            tasksListLiveData.value = interactor.getTasks()
-        }
+    fun refreshTasks() {
+        taskDataSourceFactory.taskDataSourceLiveData.value?.invalidate()
     }
 }

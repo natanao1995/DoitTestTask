@@ -8,9 +8,9 @@ import com.example.doittesttask.data.remote.entity.TasksListBody
 class TaskListInteractor(
     private val doitService: DoitService
 ) : BaseInteractor() {
-    suspend fun getTasks(): Result<TasksListBody> {
+    suspend fun getTasks(page: Int): Result<TasksListBody> {
         return processRequest {
-            doitService.getTasks()
+            doitService.getTasks(page)
         }
     }
 }

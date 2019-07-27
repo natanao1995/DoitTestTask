@@ -22,3 +22,6 @@ fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
 fun <T> MutableLiveData<T>.notifyObserver() {
     this.value = this.value
 }
+
+fun Long.fromMillisToUnix() = this / 1000
+fun Long.fromUnixToMillis() = this * 1000

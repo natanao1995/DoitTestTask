@@ -25,4 +25,8 @@
     <string name="addTaskWasSaved">Task was successfully saved</string>
     <string name="addTaskCheckFields">Check all fields</string>
     <string name="errorUnexpected">Unexpected error</string>
+    <string name="taskListPriorityHigh">↑High</string>
+    <string name="taskListPriorityNormal">Normal</string>
+    <string name="taskListPriorityLow">↓Low</string>
+    <string name="itemTaskDueTo">Due to</string>
 </resources>

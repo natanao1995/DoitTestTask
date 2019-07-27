@@ -10,10 +10,20 @@ data class TasksListBody(
 ) {
     data class Meta(
         @SerializedName("current")
-        val current: Int,
+        val currentPage: Int,
         @SerializedName("limit")
-        val limit: Int,
+        val itemsPerPage: Int,
         @SerializedName("count")
-        val count: Int
-    )
+        val totalItemsCount: Int
+    ) {
+        companion object {
+            const val FIRST_PAGE = 1
+            const val PAGE_SIZE =
+                15 //approximately, hope it doesn't change from time to time. But even if so it should work
+        }
+
+        val pagesNumber = totalItemsCount / itemsPerPage + 1
+        val isFirst = currentPage == FIRST_PAGE
+        val isLast = currentPage == pagesNumber
+    }
 }
