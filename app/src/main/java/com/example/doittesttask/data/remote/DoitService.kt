@@ -1,7 +1,6 @@
 package com.example.doittesttask.data.remote
 
 import com.example.doittesttask.data.remote.entity.*
-import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -9,7 +8,7 @@ interface DoitService {
     @GET("tasks")
     suspend fun getTasks(
         @Query("page") page: Int? = null,
-        @Query("sort") sort: String? = null
+        @Query("sort") sort: SortQuery? = null
     ): Response<TasksListBody>
 
     @POST("tasks")
@@ -19,19 +18,19 @@ interface DoitService {
 
     @GET("tasks/{id}")
     suspend fun getTaskById(
-        @Path("id") id: Int
+        @Path("id") id: Long
     ): Response<TaskResponseBody>
 
     @PUT("tasks/{id}")
     suspend fun updateTask(
-        @Path("id") id: Int,
+        @Path("id") id: Long,
         @Body task: TaskRequestBody
     ): Response<TaskResponseBody>
 
     @DELETE("tasks/{id}")
     suspend fun deleteTask(
-        @Path("id") id: Int
-    ): ResponseBody
+        @Path("id") id: Long
+    ): Response<Unit>
 
     @POST("users")
     suspend fun registerUser(

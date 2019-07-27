@@ -90,6 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:orientation="horizontal"
+            android:animateLayoutChanges="true"
             app:layout_constraintLeft_toLeftOf="@id/guidelineLeft"
             app:layout_constraintRight_toRightOf="@id/guidelineRight"
             app:layout_constraintTop_toBottomOf="@id/textPriority">
@@ -103,6 +104,7 @@
                 style="@style/DoitRadioButton"/>
 
         <Space
+                android:id="@+id/space1"
                 android:layout_width="8dp"
                 android:layout_height="wrap_content"/>
 
@@ -116,6 +118,7 @@
                 style="@style/DoitRadioButton"/>
 
         <Space
+                android:id="@+id/space2"
                 android:layout_width="8dp"
                 android:layout_height="wrap_content"/>
 
@@ -145,8 +148,8 @@
             android:layout_height="wrap_content"
             android:text="@string/addTaskDescription"
             android:layout_marginTop="24dp"
-            android:labelFor="@id/editTextDescription"
             android:visibility="gone"
+            android:labelFor="@id/editTextDescription"
             app:layout_constraintTop_toBottomOf="@id/radioGroupPriority"
             app:layout_constraintLeft_toLeftOf="@id/guidelineLeft"
             app:layout_constraintRight_toRightOf="@id/guidelineRight"/>
@@ -198,7 +201,26 @@
             android:id="@+id/buttonSave"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/addTaskSave"
+            android:text="@string/taskDetailsSave"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="@id/guidelineLeft"
+            app:layout_constraintRight_toRightOf="@id/guidelineRight"
+            app:layout_constraintBottom_toTopOf="@id/buttonDelete"/>
+
+    <Button
+            android:id="@+id/buttonEdit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/taskDetailsEdit"
+            app:layout_constraintLeft_toLeftOf="@id/guidelineLeft"
+            app:layout_constraintRight_toRightOf="@id/guidelineRight"
+            app:layout_constraintBottom_toTopOf="@id/buttonDelete"/>
+
+    <Button
+            android:id="@+id/buttonDelete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/taskDetailsDelete"
             app:layout_constraintLeft_toLeftOf="@id/guidelineLeft"
             app:layout_constraintRight_toRightOf="@id/guidelineRight"
             app:layout_constraintBottom_toBottomOf="@id/guidelineBottom"/>

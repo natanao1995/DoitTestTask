@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools" package="com.example.doittesttask">
+          xmlns:tools="http://schemas.android.com/tools"
+          package="com.example.doittesttask">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -24,7 +25,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".feature.tasklist.TaskListActivity"/>
-        <activity android:name=".feature.addtask.AddTaskActivity"/>
+        <activity
+                android:name=".feature.addtask.AddTaskActivity"
+                android:windowSoftInputMode="adjustResize"/>
+        <activity
+                android:name=".feature.taskdetails.TaskDetailsActivity"
+                android:windowSoftInputMode="adjustResize"/>
     </application>
 
 </manifest>

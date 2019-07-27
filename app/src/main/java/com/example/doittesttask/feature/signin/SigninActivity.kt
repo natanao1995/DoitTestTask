@@ -75,7 +75,9 @@ class SigninActivity : BaseActivity() {
             when (result) {
                 is ResultSuccess -> {
                     progressBar.visibility = View.GONE
-                    startActivity(Intent(this, TaskListActivity::class.java))
+                    val intent = Intent(this, TaskListActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
                 }
                 is ResultError -> {
                     progressBar.visibility = View.GONE

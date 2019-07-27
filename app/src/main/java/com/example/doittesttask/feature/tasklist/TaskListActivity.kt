@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer
 import com.example.doittesttask.R
 import com.example.doittesttask.architecture.base.BaseActivity
 import com.example.doittesttask.feature.addtask.AddTaskActivity
+import com.example.doittesttask.feature.taskdetails.TaskDetailsActivity
 import com.example.doittesttask.feature.tasklist.recycler.TaskItem
 import com.example.doittesttask.feature.tasklist.recycler.TaskRecyclerAdapter
 import kotlinx.android.synthetic.main.activity_tasks_list.*
@@ -16,6 +17,11 @@ class TaskListActivity : BaseActivity() {
 
     companion object {
         const val REQUEST_CODE_ADD_TASK = 1
+        const val REQUEST_CODE_EDIT_TASK = 2
+        const val RESULT_CODE_DELETE_TASK = 3
+        const val RESULT_CODE_NEED_REFRESH = 4
+        const val RESULT_CODE_ERROR = 5
+        const val EXTRA_KEY_TASK = "task"
     }
 
     private val viewModel by viewModel<TaskListViewModel>()
@@ -42,6 +48,9 @@ class TaskListActivity : BaseActivity() {
         val adapter = object : TaskRecyclerAdapter() {
             override fun onItemClick(task: TaskItem) {
                 super.onItemClick(task)
+                val intent = Intent(this@TaskListActivity, TaskDetailsActivity::class.java)
+                intent.putExtra(EXTRA_KEY_TASK, task)
+                startActivityForResult(intent, REQUEST_CODE_EDIT_TASK)
                 showMessage(task.toString())
             }
         }
@@ -62,6 +71,15 @@ class TaskListActivity : BaseActivity() {
         if (requestCode == REQUEST_CODE_ADD_TASK && resultCode == Activity.RESULT_OK) {
             showMessage(getString(R.string.addTaskWasSaved))
             viewModel.refreshTasks()
+        } else if (requestCode == REQUEST_CODE_EDIT_TASK) {
+            when (resultCode) {
+                RESULT_CODE_DELETE_TASK -> {
+                    showMessage(getString(R.string.editTaskWasSaved))
+                    viewModel.refreshTasks()
+                }
+                RESULT_CODE_NEED_REFRESH -> viewModel.refreshTasks()
+                RESULT_CODE_ERROR -> showError(getString(R.string.errorUnexpected))
+            }
         }
     }
 }

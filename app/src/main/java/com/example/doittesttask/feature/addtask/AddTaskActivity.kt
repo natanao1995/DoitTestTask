@@ -5,7 +5,6 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
-import android.text.InputType
 import android.text.format.DateUtils
 import android.view.View
 import androidx.lifecycle.Observer
@@ -46,7 +45,7 @@ class AddTaskActivity : BaseActivity() {
             )
         }
 
-        editTextDateTime.setOnClickListener {
+        textDateTime.setOnClickListener {
             val date = viewModel.dateTimeLiveData.value ?: Calendar.getInstance()
             DatePickerDialog(
                 this, DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
@@ -67,16 +66,10 @@ class AddTaskActivity : BaseActivity() {
                 date.get(Calendar.DAY_OF_MONTH)
             ).show()
         }
-
-        editTextDateTime.apply {
-            inputType = InputType.TYPE_NULL
-            setTextIsSelectable(false)
-            setOnKeyListener(null)
-        }
     }
 
     private fun setupObserve() {
-        editTextDateTime.setText(viewModel.dateTimeLiveData.value.toString())
+        textDateTime.text = viewModel.dateTimeLiveData.value.toString()
         viewModel.dateTimeLiveData.observe(this, Observer { dateTime ->
             updateDateTime(dateTime)
         })
@@ -110,21 +103,19 @@ class AddTaskActivity : BaseActivity() {
         errors ?: return
 
         if (errors.isNotEmpty()) showError(getString(R.string.addTaskCheckFields))
-        editTextTitle.error = if (errors.contains(EMPTY_TITLE)) getString(R.string.addTaskErrorEmptyTitle) else null
-        editTextDateTime.error = if (errors.contains(EMPTY_DATE)) getString(R.string.addTaskErrorEmptyDate) else null
+        textErrorEmptyTitle.visibility = if (errors.contains(EMPTY_TITLE)) View.VISIBLE else View.GONE
+        textErrorEmptyDateTime.visibility = if (errors.contains(EMPTY_DATE)) View.VISIBLE else View.GONE
         textErrorEmptyPriority.visibility = if (errors.contains(EMPTY_PRIORITY)) View.VISIBLE else View.GONE
     }
 
     private fun updateDateTime(dateTime: Calendar?) {
         dateTime ?: return
 
-        editTextDateTime.error = null
-        editTextDateTime.setText(
-            DateUtils.formatDateTime(
-                this,
-                dateTime.timeInMillis,
-                DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_YEAR or DateUtils.FORMAT_SHOW_TIME
-            )
+        textDateTime.error = null
+        textDateTime.text = DateUtils.formatDateTime(
+            this,
+            dateTime.timeInMillis,
+            DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_YEAR or DateUtils.FORMAT_SHOW_TIME
         )
     }
 }
