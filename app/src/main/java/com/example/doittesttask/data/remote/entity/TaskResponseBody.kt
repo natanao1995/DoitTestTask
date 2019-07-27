@@ -10,5 +10,5 @@ data class TaskResponseBody(
     @SerializedName("dueBy")
     val dueBy: String,
     @SerializedName("priority")
-    val priority: String
+    val priority: Priority
 )

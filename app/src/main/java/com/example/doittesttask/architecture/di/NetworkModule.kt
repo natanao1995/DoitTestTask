@@ -1,12 +1,16 @@
 package com.example.doittesttask.architecture.di
 
+import android.content.Context
 import com.example.doittesttask.Constants.BASE_URL
+import com.example.doittesttask.architecture.exception.NoInternetException
 import com.example.doittesttask.data.User
 import com.example.doittesttask.data.remote.DoitService
+import com.example.doittesttask.util.NetworkUtil
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -14,12 +18,20 @@ import java.util.concurrent.TimeUnit
 
 object NetworkModule {
     val networkModule = module {
-        single { createOkHttpClient(get()) }
+        single { createOkHttpClient(androidContext(), get()) }
         single { createRetrofitInstance(get()) }
         single { createTMDbService(get()) }
     }
 
-    private fun createOkHttpClient(user: User): OkHttpClient {
+    private fun createOkHttpClient(context: Context, user: User): OkHttpClient {
+        val networkConnectionInterceptor = Interceptor { chain ->
+            if (!NetworkUtil.isNetworkConnected(context)) {
+                throw NoInternetException()
+            }
+
+            chain.proceed(chain.request())
+        }
+
         val authInterceptor = object : Interceptor {
             override fun intercept(chain: Interceptor.Chain): Response {
                 val rawRequest = chain.request()
@@ -44,6 +56,7 @@ object NetworkModule {
         }
 
         return OkHttpClient.Builder()
+            .addInterceptor(networkConnectionInterceptor)
             .addInterceptor(authInterceptor)
             .addInterceptor(loggingInterceptor)
             .readTimeout(10, TimeUnit.SECONDS)

@@ -6,7 +6,7 @@ data class TaskRequestBody(
     @SerializedName("title")
     val title: String,
     @SerializedName("dueBy")
-    val dueBy: String,
+    val dueBy: Long,
     @SerializedName("priority")
-    val priority: String
+    val priority: Priority
 )

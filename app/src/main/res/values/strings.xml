@@ -18,4 +18,11 @@
     <string name="addTaskPriorityLow">Low</string>
     <string name="addTaskDescription">Description</string>
     <string name="addTaskDateTime">Date/Time</string>
+    <string name="addTaskErrorEmptyTitle">Please fill in title</string>
+    <string name="addTaskErrorEmptyDate">Please select date and time</string>
+    <string name="addTaskErrorEmptyPriority">Please select priority</string>
+    <string name="errorNoInternetConnection">No internet connection</string>
+    <string name="addTaskWasSaved">Task was successfully saved</string>
+    <string name="addTaskCheckFields">Check all fields</string>
+    <string name="errorUnexpected">Unexpected error</string>
 </resources>

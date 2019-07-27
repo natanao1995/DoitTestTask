@@ -1,5 +1,6 @@
 package com.example.doittesttask.feature.tasklist
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -15,6 +16,10 @@ import kotlinx.android.synthetic.main.activity_tasks_list.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class TaskListActivity : BaseActivity() {
+
+    companion object {
+        const val REQUEST_CODE_ADD_TASK = 1
+    }
 
     private val viewModel by viewModel<TaskListViewModel>()
 
@@ -32,7 +37,7 @@ class TaskListActivity : BaseActivity() {
         }
 
         buttonAdd.setOnClickListener {
-            startActivity(Intent(this, AddTaskActivity::class.java))
+            startActivityForResult(Intent(this, AddTaskActivity::class.java), REQUEST_CODE_ADD_TASK)
         }
     }
 
@@ -52,5 +57,12 @@ class TaskListActivity : BaseActivity() {
                 }
             }
         })
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE_ADD_TASK && resultCode == Activity.RESULT_OK) {
+            showMessage(getString(R.string.addTaskWasSaved))
+        }
     }
 }

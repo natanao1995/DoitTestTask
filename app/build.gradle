@@ -51,4 +51,6 @@ dependencies {
 
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'com.google.android.material:material:1.0.0'
+
+    implementation 'com.github.Pradyuman7:ChocoBar:V1.0'
 }
