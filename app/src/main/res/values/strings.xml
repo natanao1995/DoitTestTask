@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">DoitTestTask</string>
+
+    <string name="signinTitle">Sign In</string>
+    <string name="signinEmailHint">E-mail</string>
+    <string name="signinPasswordHint">Password</string>
+    <string name="signinModeLoginRegister">Login / Register</string>
+    <string name="signinLogIn">Log in</string>
+    <string name="signinRegister">Register</string>
+    <string name="signinErrorInvalidEmailAddress">Invalid E-mail address</string>
+    <string name="signinErrorEmptyEmail">You should fill in E-mail</string>
+    <string name="signinErrorEmptyPassword">You should fill in password</string>
+    <string name="addTaskSave">Save</string>
+    <string name="addTaskTitle">Title</string>
+    <string name="addTaskPriority">Priority</string>
+    <string name="addTaskPriorityHigh">High</string>
+    <string name="addTaskPriorityMedium">Medium</string>
+    <string name="addTaskPriorityLow">Low</string>
+    <string name="addTaskDescription">Description</string>
+    <string name="addTaskDateTime">Date/Time</string>
+</resources>

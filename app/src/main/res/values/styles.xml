@@ -1,0 +1,21 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="DoitTheme" parent="Theme.AppCompat.NoActionBar">
+        <!-- Customize your theme here. -->
+        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+        <!--<item name="colorAccent">@color/colorAccent</item>-->
+    </style>
+
+    <style name="DoitEditText">
+        <item name="android:background">@drawable/bg_input</item>
+        <item name="android:padding">8dp</item>
+    </style>
+
+    <style name="DoitRadioButton">
+        <item name="android:background">@drawable/bg_radio_button_priority</item>
+        <item name="android:button">@color/colorTransparent</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+</resources>
