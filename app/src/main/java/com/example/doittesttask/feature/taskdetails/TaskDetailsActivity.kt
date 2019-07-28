@@ -66,28 +66,30 @@ class TaskDetailsActivity : BaseActivity() {
     }
 
     private fun setupUi() {
-        buttonEdit.setOnClickListener {
-            viewModel.changeMode(TaskDetailsViewModel.DetailsMode.EDIT)
+        toolbar.navigationIcon = getDrawable(R.drawable.ic_arrow_back)
+        toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
+
+        toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.menuDelete -> viewModel.deleteTask()
+                R.id.menuEdit -> viewModel.changeMode(TaskDetailsViewModel.DetailsMode.EDIT)
+                R.id.menuSave -> viewModel.updateTask(
+                    editTextTitle.text.toString(),
+                    when (radioGroupPriority.checkedRadioButtonId) {
+                        R.id.radioLow -> Priority.LOW
+                        R.id.radioMedium -> Priority.NORMAL
+                        R.id.radioHigh -> Priority.HIGH
+                        else -> null
+                    }
+                )
+            }
+            return@setOnMenuItemClickListener true
         }
 
         editTextTitle.doAfterTextChanged {
             textErrorEmptyTitle.visibility = if (it.isNullOrBlank()) View.VISIBLE else View.GONE
-        }
-
-        buttonSave.setOnClickListener {
-            viewModel.updateTask(
-                editTextTitle.text.toString(),
-                when (radioGroupPriority.checkedRadioButtonId) {
-                    R.id.radioLow -> Priority.LOW
-                    R.id.radioMedium -> Priority.NORMAL
-                    R.id.radioHigh -> Priority.HIGH
-                    else -> null
-                }
-            )
-        }
-
-        buttonDelete.setOnClickListener {
-            viewModel.deleteTask()
         }
     }
 
@@ -147,8 +149,8 @@ class TaskDetailsActivity : BaseActivity() {
                 editTextTitle.isEnabled = false
                 hideKeyboard()
                 editTextTitle.clearFocus()
-                buttonEdit.visibility = View.VISIBLE
-                buttonSave.visibility = View.GONE
+                toolbar.menu?.findItem(R.id.menuEdit)?.isVisible = true
+                toolbar.menu?.findItem(R.id.menuSave)?.isVisible = false
             }
             TaskDetailsViewModel.DetailsMode.EDIT -> {
                 radioLow.visibility = View.VISIBLE
@@ -160,8 +162,8 @@ class TaskDetailsActivity : BaseActivity() {
                 editTextTitle.isEnabled = true
                 editTextTitle.requestFocus()
                 editTextTitle.setSelection(editTextTitle.length())
-                buttonEdit.visibility = View.GONE
-                buttonSave.visibility = View.VISIBLE
+                toolbar.menu?.findItem(R.id.menuEdit)?.isVisible = false
+                toolbar.menu?.findItem(R.id.menuSave)?.isVisible = true
             }
         }
     }

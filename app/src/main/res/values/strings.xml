@@ -40,4 +40,8 @@
     <string name="menuSortByExpirationTime">By expiration time</string>
     <string name="menuSortDescending">Descending</string>
     <string name="menuLogOut">Log out</string>
+    <string name="menuSave">Save</string>
+    <string name="menuDelete">Delete</string>
+    <string name="menuEdit">Edit</string>
+    <string name="detailsToolbar">Task details</string>
 </resources>
