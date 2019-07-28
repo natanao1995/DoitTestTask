@@ -2,6 +2,7 @@ package com.example.doittesttask.feature.signin
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.method.PasswordTransformationMethod
 import android.util.Patterns
 import android.view.View
 import android.widget.Toast
@@ -75,8 +76,14 @@ class SigninActivity : BaseActivity() {
             mode ?: return@Observer
 
             when(mode) {
-                SigninViewModel.Mode.LOG_IN -> buttonSignIn.text = getString(R.string.signinLogIn)
-                SigninViewModel.Mode.REGISTER -> buttonSignIn.text = getString(R.string.signinRegister)
+                SigninViewModel.Mode.LOG_IN -> {
+                    buttonSignIn.text = getString(R.string.signinLogIn)
+                    editTextPassword.transformationMethod = PasswordTransformationMethod.getInstance()
+                }
+                SigninViewModel.Mode.REGISTER -> {
+                    buttonSignIn.text = getString(R.string.signinRegister)
+                    editTextPassword.transformationMethod = null
+                }
             }
         })
 
