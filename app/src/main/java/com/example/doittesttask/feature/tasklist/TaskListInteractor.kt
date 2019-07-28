@@ -9,9 +9,13 @@ import com.example.doittesttask.data.remote.entity.TasksListBody
 class TaskListInteractor(
     private val doitService: DoitService
 ) : BaseInteractor() {
-    suspend fun getTasks(page: Int): Result<TasksListBody> {
+    suspend fun getTasks(
+        page: Int,
+        sortType: SortQuery.SortType,
+        sortOrder: SortQuery.SortOrder
+    ): Result<TasksListBody> {
         return processRequest {
-            doitService.getTasks(page, SortQuery.TITLE_DESC)
+            doitService.getTasks(page, "${sortType.value} ${sortOrder.value}")
         }
     }
 }

@@ -6,6 +6,8 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.example.doittesttask.R
 import com.example.doittesttask.architecture.base.BaseActivity
+import com.example.doittesttask.data.remote.entity.SortQuery.SortOrder
+import com.example.doittesttask.data.remote.entity.SortQuery.SortType
 import com.example.doittesttask.feature.addtask.AddTaskActivity
 import com.example.doittesttask.feature.taskdetails.TaskDetailsActivity
 import com.example.doittesttask.feature.tasklist.recycler.TaskItem
@@ -36,6 +38,36 @@ class TaskListActivity : BaseActivity() {
     }
 
     private fun setupUi() {
+        toolbar.menu?.findItem(R.id.sortIsDesc)?.isChecked = viewModel.sortOrder == SortOrder.DESCENDING
+        when (viewModel.sortType) {
+            SortType.BY_TITLE -> toolbar.menu?.findItem(R.id.sortName)?.isChecked = true
+            SortType.BY_EXPIRATION_TIME -> toolbar.menu?.findItem(R.id.sortDueTo)?.isChecked = true
+            SortType.BY_CREATION_TIME -> toolbar.menu?.findItem(R.id.sortCreationTime)?.isChecked = true
+        }
+        toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.sortName -> {
+                    viewModel.updateSortType(SortType.BY_TITLE)
+                    it.isChecked = true
+                }
+                R.id.sortCreationTime -> {
+                    viewModel.updateSortType(SortType.BY_CREATION_TIME)
+                    it.isChecked = true
+                }
+                R.id.sortDueTo -> {
+                    viewModel.updateSortType(SortType.BY_EXPIRATION_TIME)
+                    it.isChecked = true
+                }
+                R.id.sortIsDesc -> {
+                    it.isChecked = !it.isChecked
+                    viewModel.updateSortOrder(if (it.isChecked) SortOrder.DESCENDING else SortOrder.ASCENDING)
+                }
+                R.id.logout -> {
+                    viewModel.logout()
+                }
+            }
+            return@setOnMenuItemClickListener true
+        }
         buttonAdd.setOnClickListener {
             startActivityForResult(Intent(this, AddTaskActivity::class.java), REQUEST_CODE_ADD_TASK)
         }

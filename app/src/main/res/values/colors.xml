@@ -5,11 +5,11 @@
     <color name="colorAccent">#D81B60</color>
     <color name="colorGray">#666</color>
     <color name="colorTransparent">#00FFFFFF</color>
-    <color name="colorError">#EF5350</color>
+    <color name="colorError">#F44336</color>
     <color name="colorPriorityHigh">#EF5350</color>
-    <color name="colorPriorityNormal">#42A5F5</color>
+    <color name="colorPriorityNormal">#FFA726</color>
     <color name="colorPriorityLow">#66BB6A</color>
     <color name="colorPriorityHighAlpha">#99EF5350</color>
-    <color name="colorPriorityNormalAlpha">#9942A5F5</color>
+    <color name="colorPriorityNormalAlpha">#99FFA726</color>
     <color name="colorPriorityLowAlpha">#9966BB6A</color>
 </resources>

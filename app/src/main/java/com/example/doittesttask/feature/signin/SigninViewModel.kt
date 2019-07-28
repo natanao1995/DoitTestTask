@@ -1,18 +1,14 @@
 package com.example.doittesttask.feature.signin
 
-import android.content.Context
 import androidx.lifecycle.MutableLiveData
-import com.example.doittesttask.Constants.TOKEN_KEY
 import com.example.doittesttask.architecture.base.*
 import com.example.doittesttask.architecture.exception.SigninModeNotSpecifiedException
-import com.example.doittesttask.data.User
-import de.adorsys.android.securestoragelibrary.SecurePreferences
+import com.example.doittesttask.feature.auth.AuthManager
 import kotlinx.coroutines.launch
 
 class SigninViewModel(
-    private val context: Context,
-    private val user: User,
-    private val interactor: SigninInteractor
+    private val interactor: SigninInteractor,
+    private val authManager: AuthManager
 ) : BaseViewModel() {
 
     val signinModeLiveData = MutableLiveData(Mode.LOG_IN)
@@ -26,20 +22,13 @@ class SigninViewModel(
     fun silentAuth() {
         launch {
             silentAuthResultLiveData.value = ResultLoading()
-            val token = SecurePreferences.getStringValue(context, TOKEN_KEY, null)
-
-            if (token == null) {
-                silentAuthResultLiveData.value = ResultError(Exception())
-            } else {
-                user.token = token
-                silentAuthResultLiveData.value = ResultSuccess(Unit)
-            }
+            silentAuthResultLiveData.value = authManager.silentAuth()
         }
     }
 
     fun clearToken() {
         launch {
-            SecurePreferences.removeValue(context, TOKEN_KEY)
+            authManager.clearToken()
         }
     }
 
@@ -52,9 +41,7 @@ class SigninViewModel(
                 else -> ResultError(SigninModeNotSpecifiedException())
             }
             if (result is ResultSuccess) {
-                user.token = result.data.token
-
-                SecurePreferences.setValue(context, TOKEN_KEY, result.data.token)
+                authManager.signin(result.data.token)
             }
             signinResultLiveData.value = result.mapTo {}
         }

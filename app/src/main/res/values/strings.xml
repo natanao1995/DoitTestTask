@@ -35,4 +35,9 @@
     <string name="taskDetailsSave">Save</string>
     <string name="editTaskChangesSaved">Changes was successfully saved</string>
     <string name="signinAuthenticationFailed">Authentication failed. Please sign in again</string>
+    <string name="menuSortByName">By name</string>
+    <string name="menuSortByTimeOfCreation">By time of creation</string>
+    <string name="menuSortByExpirationTime">By expiration time</string>
+    <string name="menuSortDescending">Descending</string>
+    <string name="menuLogOut">Log out</string>
 </resources>

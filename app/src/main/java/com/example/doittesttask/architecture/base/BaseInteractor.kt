@@ -3,7 +3,6 @@ package com.example.doittesttask.architecture.base
 import com.example.doittesttask.data.remote.entity.ErrorBody
 import com.google.gson.Gson
 import retrofit2.Response
-import java.lang.Exception
 
 open class BaseInteractor {
     suspend fun <T : Any> processRequest(call: suspend () -> Response<T>): Result<T> {
@@ -21,7 +20,11 @@ open class BaseInteractor {
     }
 
     private fun <T : Any> handleErrorResponse(responseString: String?): ResultError<T> {
-        val errorEntity = Gson().fromJson(responseString, ErrorBody::class.java)
-        return ResultError(exception = Exception(errorEntity?.message))
+        val errorEntity = Gson().fromJson(responseString, ErrorBody::class.java) ?: return ResultError(Exception())
+        var message = errorEntity.message
+        errorEntity.fields?.email?.let {
+            message += "\n" + it
+        }
+        return ResultError(exception = Exception(message))
     }
 }

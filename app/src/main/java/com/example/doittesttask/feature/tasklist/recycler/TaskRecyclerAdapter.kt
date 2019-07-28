@@ -37,7 +37,8 @@ open class TaskRecyclerAdapter : PagedListAdapter<TaskItem, TaskRecyclerAdapter.
     class TaskViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun bind(task: TaskItem) {
             textTitle.text = task.title
-            textDueTo.text = DateFormat.format("MM/dd/yyyy hh:mm", task.dueBy).toString()
+            //I wanted to use this format in list, but sorting by expiration time on server works wrong) "MM/dd/yyyy hh:mm"
+            textDueTo.text = DateFormat.format("MM/dd/yyyy", task.dueBy).toString()
             val context = textPriority.context
             when (task.priority) {
                 Priority.LOW -> {

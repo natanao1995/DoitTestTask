@@ -1,18 +1,14 @@
 package com.example.doittesttask.data.remote.entity
 
-import com.google.gson.annotations.SerializedName
+class SortQuery {
+    enum class SortType(val value: String) {
+        BY_TITLE("title"),
+        BY_EXPIRATION_TIME("dueBy"),
+        BY_CREATION_TIME("id")
+    }
 
-enum class SortQuery {
-    @SerializedName("title asc")
-    TITLE_ASC,
-    @SerializedName("title desc")
-    TITLE_DESC,
-    @SerializedName("dueBy asc")
-    DUE_BY_ASC,
-    @SerializedName("dueBy desc")
-    DUE_BY_DESC,
-    @SerializedName("id asc")
-    CREATION_TIME_ASC,
-    @SerializedName("id desc")
-    CREATION_TIME_DESC
+    enum class SortOrder(val value: String) {
+        ASCENDING("asc"),
+        DESCENDING("desc")
+    }
 }

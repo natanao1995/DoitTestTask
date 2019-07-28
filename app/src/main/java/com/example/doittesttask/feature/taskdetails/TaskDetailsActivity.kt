@@ -53,13 +53,6 @@ class TaskDetailsActivity : BaseActivity() {
             Priority.NORMAL -> radioMedium.performClick()
             Priority.HIGH -> radioHigh.performClick()
         }
-//        radioGroupPriority.check(
-//            when (task.priority) {
-//                Priority.LOW -> R.id.radioLow
-//                Priority.NORMAL -> R.id.radioMedium
-//                Priority.HIGH -> R.id.radioHigh
-//            }
-//        )
     }
 
     override fun onBackPressed() {
@@ -77,7 +70,7 @@ class TaskDetailsActivity : BaseActivity() {
             viewModel.changeMode(TaskDetailsViewModel.DetailsMode.EDIT)
         }
 
-        textTitle.doAfterTextChanged {
+        editTextTitle.doAfterTextChanged {
             textErrorEmptyTitle.visibility = if (it.isNullOrBlank()) View.VISIBLE else View.GONE
         }
 

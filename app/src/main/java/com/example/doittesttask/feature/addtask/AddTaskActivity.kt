@@ -46,7 +46,7 @@ class AddTaskActivity : BaseActivity() {
             )
         }
 
-        textTitle.doAfterTextChanged {
+        editTextTitle.doAfterTextChanged {
             textErrorEmptyTitle.visibility = if (it.isNullOrBlank()) View.VISIBLE else View.GONE
         }
 

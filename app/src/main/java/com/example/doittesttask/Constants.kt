@@ -5,5 +5,5 @@ object Constants {
 
     const val DATABASE_NAME = "doit_database"
 
-    const val TOKEN_KEY = "doit_token"
+    const val SECURE_PREFERENCES_KEY_TOKEN = "doit_token"
 }

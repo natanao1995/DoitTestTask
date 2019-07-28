@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+            android:id="@+id/sortType"
+            android:checkableBehavior="single">
+        <item
+                android:id="@+id/sortDueTo"
+                android:title="@string/menuSortByExpirationTime"/>
+        <item
+                android:id="@+id/sortName"
+                android:title="@string/menuSortByName"/>
+        <item
+                android:id="@+id/sortCreationTime"
+                android:title="@string/menuSortByTimeOfCreation"/>
+    </group>
+    <item
+            android:id="@+id/sortIsDesc"
+            android:title="@string/menuSortDescending"
+            android:checkable="true"/>
+    <item
+            android:id="@+id/logout"
+            android:title="@string/menuLogOut"/>
+</menu>

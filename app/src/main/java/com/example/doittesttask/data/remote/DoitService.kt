@@ -8,7 +8,7 @@ interface DoitService {
     @GET("tasks")
     suspend fun getTasks(
         @Query("page") page: Int? = null,
-        @Query("sort") sort: SortQuery? = null
+        @Query("sort") sort: String? = null
     ): Response<TasksListBody>
 
     @POST("tasks")
