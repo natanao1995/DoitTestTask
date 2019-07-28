@@ -9,4 +9,7 @@
     <color name="colorPriorityHigh">#EF5350</color>
     <color name="colorPriorityNormal">#42A5F5</color>
     <color name="colorPriorityLow">#66BB6A</color>
+    <color name="colorPriorityHighAlpha">#99EF5350</color>
+    <color name="colorPriorityNormalAlpha">#9942A5F5</color>
+    <color name="colorPriorityLowAlpha">#9966BB6A</color>
 </resources>

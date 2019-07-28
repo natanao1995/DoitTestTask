@@ -100,6 +100,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/addTaskPriorityLow"
                 android:layout_weight="1"
+                android:background="@drawable/bg_radio_button_priority_low"
                 style="@style/DoitRadioButton"/>
 
         <Space
@@ -113,6 +114,7 @@
                 android:checked="true"
                 android:text="@string/addTaskPriorityMedium"
                 android:layout_weight="1"
+                android:background="@drawable/bg_radio_button_priority_normal"
                 style="@style/DoitRadioButton"/>
 
         <Space
@@ -125,6 +127,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/addTaskPriorityHigh"
                 android:layout_weight="1"
+                android:background="@drawable/bg_radio_button_priority_high"
                 style="@style/DoitRadioButton"/>
     </RadioGroup>
 

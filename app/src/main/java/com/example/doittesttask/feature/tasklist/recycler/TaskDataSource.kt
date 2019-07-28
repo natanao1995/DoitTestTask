@@ -17,7 +17,7 @@ class TaskDataSource(
         GlobalScope.launch {
             when (val response = interactor.getTasks(FIRST_PAGE)) {
                 is ResultSuccess -> {
-                    val key = if (!response.data.meta.isLast) FIRST_PAGE + 1 else null
+                    val key = if (!response.data.meta.isLast()) FIRST_PAGE + 1 else null
 
                     callback.onResult(response.data.tasks.map { it.toUiEntity() }, null, key)
                 }
@@ -30,7 +30,7 @@ class TaskDataSource(
         GlobalScope.launch {
             when (val response = interactor.getTasks(params.key)) {
                 is ResultSuccess -> {
-                    val key = if (!response.data.meta.isFirst) params.key - 1 else null
+                    val key = if (!response.data.meta.isFirst()) params.key - 1 else null
 
                     callback.onResult(response.data.tasks.map { it.toUiEntity() }, key)
                 }
@@ -43,7 +43,7 @@ class TaskDataSource(
         GlobalScope.launch {
             when (val response = interactor.getTasks(params.key)) {
                 is ResultSuccess -> {
-                    val key = if (!response.data.meta.isLast) params.key + 1 else null
+                    val key = if (!response.data.meta.isLast()) params.key + 1 else null
 
                     callback.onResult(response.data.tasks.map { it.toUiEntity() }, key)
                 }

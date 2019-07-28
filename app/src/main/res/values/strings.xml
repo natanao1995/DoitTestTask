@@ -34,4 +34,5 @@
     <string name="taskDetailsEdit">Edit</string>
     <string name="taskDetailsSave">Save</string>
     <string name="editTaskChangesSaved">Changes was successfully saved</string>
+    <string name="signinAuthenticationFailed">Authentication failed. Please sign in again</string>
 </resources>

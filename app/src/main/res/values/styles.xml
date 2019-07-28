@@ -13,7 +13,6 @@
     </style>
 
     <style name="DoitRadioButton">
-        <item name="android:background">@drawable/bg_radio_button_priority</item>
         <item name="android:button">@color/colorTransparent</item>
         <item name="android:padding">8dp</item>
         <item name="android:gravity">center</item>

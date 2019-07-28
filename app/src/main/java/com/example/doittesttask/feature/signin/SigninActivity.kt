@@ -18,11 +18,22 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class SigninActivity : BaseActivity() {
 
+    companion object {
+        const val EXTRA_KEY_UNAUTHORIZED = "key_unauthorized"
+    }
+
     private val viewModel by viewModel<SigninViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signin)
+
+        if (intent.getBooleanExtra(EXTRA_KEY_UNAUTHORIZED, false)) {
+            showError(getString(R.string.signinAuthenticationFailed))
+            viewModel.clearToken()
+        } else {
+            viewModel.silentAuth()
+        }
 
         setupUi()
         setupObserve()
@@ -69,15 +80,26 @@ class SigninActivity : BaseActivity() {
             }
         })
 
+        viewModel.silentAuthResultLiveData.observe(this, Observer { result ->
+            result ?: return@Observer
+
+            when (result) {
+                is ResultSuccess -> {
+                    progressBar.visibility = View.GONE
+                    startNextActivity()
+                }
+                is ResultError -> progressBar.visibility = View.GONE
+                is ResultLoading -> progressBar.visibility = View.VISIBLE
+            }
+        })
+
         viewModel.signinResultLiveData.observe(this, Observer { result ->
             result ?: return@Observer
 
             when (result) {
                 is ResultSuccess -> {
                     progressBar.visibility = View.GONE
-                    val intent = Intent(this, TaskListActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    startActivity(intent)
+                    startNextActivity()
                 }
                 is ResultError -> {
                     progressBar.visibility = View.GONE
@@ -89,5 +111,11 @@ class SigninActivity : BaseActivity() {
                 }
             }
         })
+    }
+
+    private fun startNextActivity() {
+        val intent = Intent(this, TaskListActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
     }
 }

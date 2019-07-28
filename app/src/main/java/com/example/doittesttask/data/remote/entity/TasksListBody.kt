@@ -22,8 +22,8 @@ data class TasksListBody(
                 15 //approximately, hope it doesn't change from time to time. But even if so it should work
         }
 
-        val pagesNumber = totalItemsCount / itemsPerPage + 1
-        val isFirst = currentPage == FIRST_PAGE
-        val isLast = currentPage == pagesNumber
+        fun pagesNumber() = totalItemsCount / itemsPerPage + 1
+        fun isFirst() = currentPage == FIRST_PAGE
+        fun isLast() = currentPage == pagesNumber()
     }
 }

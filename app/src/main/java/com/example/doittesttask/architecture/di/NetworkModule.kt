@@ -1,15 +1,11 @@
 package com.example.doittesttask.architecture.di
 
-import android.content.Context
 import com.example.doittesttask.Constants.BASE_URL
-import com.example.doittesttask.architecture.exception.NoInternetException
-import com.example.doittesttask.data.User
+import com.example.doittesttask.architecture.interceptor.AuthInterceptor
+import com.example.doittesttask.architecture.interceptor.NetworkConnectionInterceptor
 import com.example.doittesttask.data.remote.DoitService
-import com.example.doittesttask.util.NetworkUtil
 import com.google.gson.annotations.SerializedName
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
@@ -21,39 +17,17 @@ import java.util.concurrent.TimeUnit
 
 object NetworkModule {
     val networkModule = module {
-        single { createOkHttpClient(androidContext(), get()) }
+        single { createOkHttpClient(get(), get()) }
         single { createRetrofitInstance(get()) }
         single { createTMDbService(get()) }
+        single { NetworkConnectionInterceptor(androidContext()) }
+        single { AuthInterceptor(androidContext(), get()) }
     }
 
-    private fun createOkHttpClient(context: Context, user: User): OkHttpClient {
-        val networkConnectionInterceptor = Interceptor { chain ->
-            if (!NetworkUtil.isNetworkConnected(context)) {
-                throw NoInternetException()
-            }
-
-            chain.proceed(chain.request())
-        }
-
-        val authInterceptor = object : Interceptor {
-            override fun intercept(chain: Interceptor.Chain): Response {
-                val rawRequest = chain.request()
-
-                if (rawRequest.method().equals("post", true) &&
-                    (rawRequest.url().encodedPath().equals("/users", true) ||
-                            rawRequest.url().encodedPath().equals("/auth", true))) {
-                    return chain.proceed(rawRequest)
-                }
-
-                val request = chain.request()
-                    .newBuilder()
-                    .addHeader("Authorization", "Bearer ${user.token}")
-                    .build()
-
-                return chain.proceed(request)
-            }
-        }
-
+    private fun createOkHttpClient(
+        networkConnectionInterceptor: NetworkConnectionInterceptor,
+        authInterceptor: AuthInterceptor
+    ): OkHttpClient {
         val loggingInterceptor = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
