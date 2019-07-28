@@ -2,7 +2,6 @@ package com.example.doittesttask.architecture
 
 import android.app.Application
 import com.example.doittesttask.architecture.di.AuthModule.authModule
-import com.example.doittesttask.architecture.di.DatabaseModule.databaseModule
 import com.example.doittesttask.architecture.di.InteractorModule.interactorModule
 import com.example.doittesttask.architecture.di.NetworkModule.networkModule
 import com.example.doittesttask.architecture.di.ViewModelModule.viewModelModule
@@ -20,8 +19,8 @@ class DoitTestTaskApplication : Application() {
                 authModule,
                 viewModelModule,
                 interactorModule,
-                networkModule,
-                databaseModule)
+                networkModule
+            )
         }
     }
 }
