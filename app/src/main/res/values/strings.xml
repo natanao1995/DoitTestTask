@@ -10,7 +10,6 @@
     <string name="signinErrorInvalidEmailAddress">Invalid E-mail address</string>
     <string name="signinErrorEmptyEmail">You should fill in E-mail</string>
     <string name="signinErrorEmptyPassword">You should fill in password</string>
-    <string name="addTaskSave">Save</string>
     <string name="addTaskTitle">Title</string>
     <string name="addTaskPriority">Priority</string>
     <string name="addTaskPriorityHigh">High</string>
@@ -30,9 +29,6 @@
     <string name="taskListPriorityNormal">Normal</string>
     <string name="taskListPriorityLow">↓Low</string>
     <string name="itemTaskDueTo">Due to</string>
-    <string name="taskDetailsDelete">Delete</string>
-    <string name="taskDetailsEdit">Edit</string>
-    <string name="taskDetailsSave">Save</string>
     <string name="editTaskChangesSaved">Changes was successfully saved</string>
     <string name="signinAuthenticationFailed">Authentication failed. Please sign in again</string>
     <string name="menuSortByName">By name</string>
@@ -44,4 +40,5 @@
     <string name="menuDelete">Delete</string>
     <string name="menuEdit">Edit</string>
     <string name="detailsToolbar">Task details</string>
+    <string name="addTaskToolbar">Add task</string>
 </resources>

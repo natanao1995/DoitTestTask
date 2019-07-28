@@ -34,16 +34,24 @@ class AddTaskActivity : BaseActivity() {
     }
 
     private fun setupUi() {
-        buttonSave.setOnClickListener {
-            viewModel.saveTask(
-                editTextTitle.text.toString(),
-                when (radioGroupPriority.checkedRadioButtonId) {
-                    R.id.radioLow -> Priority.LOW
-                    R.id.radioMedium -> Priority.NORMAL
-                    R.id.radioHigh -> Priority.HIGH
-                    else -> null
-                }
-            )
+        toolbar.navigationIcon = getDrawable(R.drawable.ic_arrow_back)
+        toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
+
+        toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.menuAddSave -> viewModel.saveTask(
+                    editTextTitle.text.toString(),
+                    when (radioGroupPriority.checkedRadioButtonId) {
+                        R.id.radioLow -> Priority.LOW
+                        R.id.radioMedium -> Priority.NORMAL
+                        R.id.radioHigh -> Priority.HIGH
+                        else -> null
+                    }
+                )
+            }
+            return@setOnMenuItemClickListener true
         }
 
         editTextTitle.doAfterTextChanged {
