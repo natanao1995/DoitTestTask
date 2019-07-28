@@ -7,6 +7,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.format.DateUtils
 import android.view.View
+import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
 import com.example.doittesttask.R
 import com.example.doittesttask.architecture.base.BaseActivity
@@ -43,6 +44,10 @@ class AddTaskActivity : BaseActivity() {
                     else -> null
                 }
             )
+        }
+
+        textTitle.doAfterTextChanged {
+            textErrorEmptyTitle.visibility = if (it.isNullOrBlank()) View.VISIBLE else View.GONE
         }
 
         textDateTime.setOnClickListener {

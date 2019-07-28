@@ -25,7 +25,7 @@ interface DoitService {
     suspend fun updateTask(
         @Path("id") id: Long,
         @Body task: TaskRequestBody
-    ): Response<TaskResponseBody>
+    ): Response<Unit>
 
     @DELETE("tasks/{id}")
     suspend fun deleteTask(

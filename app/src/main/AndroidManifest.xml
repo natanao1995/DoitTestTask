@@ -30,7 +30,7 @@
                 android:windowSoftInputMode="adjustResize"/>
         <activity
                 android:name=".feature.taskdetails.TaskDetailsActivity"
-                android:windowSoftInputMode="adjustResize"/>
+                android:windowSoftInputMode="adjustResize|stateHidden"/>
     </application>
 
 </manifest>

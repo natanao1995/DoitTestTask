@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.format.DateUtils
 import android.view.View
+import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
 import com.example.doittesttask.R
 import com.example.doittesttask.architecture.base.BaseActivity
@@ -47,13 +48,18 @@ class TaskDetailsActivity : BaseActivity() {
         viewModel.setTime(task.dueBy)
         viewModel.setTaskId(task.id)
         editTextTitle.setText(task.title)
-        radioGroupPriority.check(
-            when (task.priority) {
-                Priority.LOW -> R.id.radioLow
-                Priority.NORMAL -> R.id.radioMedium
-                Priority.HIGH -> R.id.radioHigh
-            }
-        )
+        when (task.priority) {
+            Priority.LOW -> radioLow.performClick()
+            Priority.NORMAL -> radioMedium.performClick()
+            Priority.HIGH -> radioHigh.performClick()
+        }
+//        radioGroupPriority.check(
+//            when (task.priority) {
+//                Priority.LOW -> R.id.radioLow
+//                Priority.NORMAL -> R.id.radioMedium
+//                Priority.HIGH -> R.id.radioHigh
+//            }
+//        )
     }
 
     override fun onBackPressed() {
@@ -69,6 +75,10 @@ class TaskDetailsActivity : BaseActivity() {
     private fun setupUi() {
         buttonEdit.setOnClickListener {
             viewModel.changeMode(TaskDetailsViewModel.DetailsMode.EDIT)
+        }
+
+        textTitle.doAfterTextChanged {
+            textErrorEmptyTitle.visibility = if (it.isNullOrBlank()) View.VISIBLE else View.GONE
         }
 
         buttonSave.setOnClickListener {
@@ -135,12 +145,15 @@ class TaskDetailsActivity : BaseActivity() {
 
         when (mode) {
             TaskDetailsViewModel.DetailsMode.VIEW -> {
-                radioLow.visibility = if (radioLow.isSelected) View.VISIBLE else View.GONE
-                radioMedium.visibility = if (radioMedium.isSelected) View.VISIBLE else View.GONE
-                radioHigh.visibility = if (radioHigh.isSelected) View.VISIBLE else View.GONE
+                radioLow.visibility = if (radioLow.isChecked) View.VISIBLE else View.GONE
+                radioMedium.visibility = if (radioMedium.isChecked) View.VISIBLE else View.GONE
+                radioHigh.visibility = if (radioHigh.isChecked) View.VISIBLE else View.GONE
                 space1.visibility = View.GONE
                 space2.visibility = View.GONE
                 textDateTime.setOnClickListener(null)
+                editTextTitle.isEnabled = false
+                hideKeyboard()
+                editTextTitle.clearFocus()
                 buttonEdit.visibility = View.VISIBLE
                 buttonSave.visibility = View.GONE
             }
@@ -151,6 +164,9 @@ class TaskDetailsActivity : BaseActivity() {
                 space1.visibility = View.VISIBLE
                 space2.visibility = View.VISIBLE
                 textDateTime.setOnClickListener(changeDateTimeOnClickListener)
+                editTextTitle.isEnabled = true
+                editTextTitle.requestFocus()
+                editTextTitle.setSelection(editTextTitle.length())
                 buttonEdit.visibility = View.GONE
                 buttonSave.visibility = View.VISIBLE
             }
